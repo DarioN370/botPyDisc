@@ -12,16 +12,15 @@ Um bot para Discord Focado em produtividade
 
 ## 📖 Sobre o Projeto
 
-Este projeto foi criado com o objetivo de [detalhe o objetivo, ex: facilitar a moderação de grandes servidores, ou, aprender mais sobre a API do Discord].
+Este projeto foi criado com o objetivo de auxiliar os estudos e desenvolvimento de projetos de T.I
 
 ---
 
 ## ✨ Funcionalidades
 
-* ✅ **Moderação:** Comandos para banir, kickar e silenciar usuários.
 * 🎵 **Música:** Toca músicas do YouTube diretamente no canal de voz.
 * 🎲 **Jogos:** Comandos divertidos como `!dado` ou `!moeda`.
-* 🛠️ **Utilidades:** [Ex: `!clima` para ver o tempo, `!avatar` para ver o avatar de alguém].
+* 🛠️ **Utilidades:** [Ex: `!clima` para ver o tempo, `!avatar` para ver o avatar de alguém], informações sobre bancos de dados etc...
 
 ---
 
@@ -51,7 +50,7 @@ Siga os passos abaixo para configurar e rodar o bot localmente:
     npm install
     ```
 
-3.  **Configuração do Bot:**
+3.  **Configuração do Bot:** COM SEGURANÇA
     * Crie um arquivo chamado `.env` na raiz do projeto.
     * Dentro dele, adicione o token do seu bot (você pega no [Portal de Desenvolvedores do Discord](https://discord.com/developers/applications)):
       ```env
