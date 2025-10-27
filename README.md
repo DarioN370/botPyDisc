@@ -1,6 +1,6 @@
 # 🤖 MARK 1
 
-Um bot para Discord focado em [Principal função, ex: moderação, música, jogos].
+Um bot para Discord Focado em produtividade
 
 <p align-itens="center">
   <img alt="Status do Projeto" src="https://img.shields.io/badge/status-em%20desenvolvimento-yellowgreen">
