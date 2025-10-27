@@ -5,15 +5,38 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import discord #importar todo o conteudo da API do Discord
-from discord.ext import commands
+from discord.ext import commands, tasks
+from datetime import time
 
 intents = discord.Intents.all() #Guardando todas as permissões que o bot usa pra funcionar
 bot = commands.Bot(".", intents=intents) #Objeto com todas as propriedades do meu bot, depois no intents eu passo todas as informações que eu quero acessar para intents 'suas permissões são as permissões definidas'
 
+#-------------------------EVENTOS------------------------------------
 @bot.event
 async def on_ready():
-    print("Bot inicializado com sucesso!!!")
-#🔝 Define uma função, e add um evento, e on_ready - quando o bot estiver ready ele run a function e printa
+    sincs = await bot.tree.sync() # variavel que inicia os comandos sincronizados
+    print(f"{len(sincs)} Comandos sincronizados") #contador de comandos sincronizados
+    print("Bot inicializado com sucesso!!!") #🔝 Define uma função, e add um evento, e on_ready - quando o bot estiver ready ele run a function e printa
+    enviar_mensagem_manha.start()
+    enviar_mensagem_noite.start() #INICIANDO A TASK, TASKS PRECISAM SER INICIALIZADAS
+    
+
+# @bot.event (LER A MENSAGEM E DE ONDE ELA VEIO)
+# async def on_message(msg:discord.Message): #o msg é o obj mensagem que o usuario envia
+#     if msg.author.bot:
+#         return # aqui eu verifico que se a msg vier de algum bot ele vai encerrar a funcao usando return, se não for bot, ele vai executar o await
+#     await msg.reply(f"Nova Mensagem do Usuário: {msg.author.mention} \n Canal: {msg.channel.name}") # Aqui eu uso o .mention no lugar do .name pra ele mencionar o nome do Usuário, acho mais util
+
+@bot.event
+async def on_member_join(membro:discord.Member):
+    canal = bot.get_channel(1432471524257955870) #Bot pegando o id do canal e guardando na var CANAL
+    await canal.send(f"{membro.mention} Entrou no servidor \nUse o comando .comandos para ver comandos disponiveis") # usando a var pra mandar uma mensagem
+
+@bot.event
+async def on_reaction_add(reacao:discord.Reaction, membro:discord.Member):
+    await reacao.message.reply(f"{membro.name} reagiu a mensagem com {reacao.emoji}")
+
+
 
 #-------------------------COMANDOS------------------------------------
 @bot.command()
@@ -42,6 +65,58 @@ async def duasMensagens(ctx:commands.Context, mensagem1, mensagem2):
 async def somar(ctx:commands.Context, num1:float, num2:float):
     resultadoSoma = num1 + num2
     await ctx.reply(f'O resultado da sua soma é = {resultadoSoma}')
+
+@bot.command()
+async def enviar_embed(ctx:commands.Context): #Embed é aquela mensagem com fundo bonitinha com tudo incorporado (Embed = incorporado)
+    minha_embed = discord.Embed()
+    minha_embed.title = "Titulo"
+    minha_embed.description = "Descricao"
+
+    imagem = discord.File("imgs\hello-world.png", "hw.png") #atribuindo a imagem na VAR imagem
+    minha_embed.set_image(url="attachment://hw.png") #imagem grande
+    minha_embed.set_thumbnail(url="attachment://hw.png") #Thumb pequena
+
+    minha_embed.set_footer(text="Footer")
+
+    minha_embed.set_author(name=ctx.author.name)
+
+    await ctx.reply(embed=minha_embed, file=imagem)
+
+#-------------------------SLASH COMMANDS------------------------------------
+@bot.tree.command()
+async def ola2(interact:discord.Interaction):
+    await interact.response.send_message(f"Olá, {interact.user.name}!!!")
+    # após o fechamento das aspas duplas, mas ainda dentro dos parenteses, eu posso colocar o termo ephemeral=true, isso significa que só quem vai ver a mensagem é quem mandou o comando
+
+@bot.tree.command()
+async def falar2(interact:discord.Interaction, texto:str):
+    await interact.response.send_message(texto)
+
+@bot.tree.command()
+async def somar2(interact:discord.Interaction, num3:int, num4:int):
+    resultadoSoma2 = num3 + num4
+    await interact.response.send_message(f"resultado da soma: {resultadoSoma2}")
+
+@bot.tree.command()
+async def selecionar_membro(interact:discord.Interaction, membro:discord.Member):
+    await interact.response.send_message(f"Membro selecionado: {membro.mention}")
+
+#-------------------------TASKS------------------------------------
+@tasks.loop(time=time(21, 0, 0))
+async def enviar_mensagem_noite():
+    canal = bot.get_channel(1432322273024409651) #Bot pegando o id do canal e guardando na var CANAL
+    await canal.send("BOA NOITEEEE🌕🌚")
+
+@tasks.loop(time=time(11, 0, 0))
+async def enviar_mensagem_manha():
+    canal = bot.get_channel(1432322273024409651) #Bot pegando o id do canal e guardando na var CANAL
+    await canal.send("Bom Dia ⛅⛅")
+
+
+
+
+
+
 
 #-----------------------FINAL-------------------------------------
 TOKEN = os.getenv("DISCORD_TOKEN")
