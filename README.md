@@ -1,4 +1,4 @@
-# 🤖 [Nome do seu Bot]
+# 🤖 MARK 1
 
 Um bot para Discord focado em [Principal função, ex: moderação, música, jogos].
 
