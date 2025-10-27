@@ -1,0 +1,1 @@
+#Para começar a programar o bot eu preciso instalar uma biblioteca para comunicar o bot e o Discord
