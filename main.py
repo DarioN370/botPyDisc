@@ -17,6 +17,14 @@ async def on_ready():
 
 #-------------------------COMANDOS------------------------------------
 @bot.command()
+async def comandos(ctx:commands.Context):
+    await ctx.send('--------COMANDOS DO BOT----------\n' 
+                   'COMANDO .ola - Sauda o usuario \n' 
+                   'COMANDO .falar - repete a frase que o usuario digitou \n' 
+                   'COMANDO .duasMensagens - repete as duas mensagens do usuario \n' 
+                   'COMANDO .somar - soma os numeros digitados pelo usuario \n')
+
+@bot.command()
 async def ola(ctx:commands.Context): #ctx = contexto, e depois eu digo pra ele que eu estou colocando o comando para ele analisar contexto, quem enviou, em qual canal, etc...
     nome = ctx.author.name #Aqui eu armazeno na var nome, o nome do autor do contexto, ou seja, eu falo pra ele pegar o nickname do autor da msg em contexto
     await ctx.reply(f'Ola, {nome}!!! Tudo bem??') #await = aguarda a entrada do user / ctx.reply = ele vai pegar o contexto do que o usuario digitou e reply(ou posso usar o send, mas a diferença é que com reply ele seleciona a mensagem e responde, por ser um servidor com mais gente, é melhor o reply) o que eu mandar, no caso 'Ola, tudo bem'... Uso o F antes da string pra concatenar variavel com string fixa.
@@ -37,4 +45,5 @@ async def somar(ctx:commands.Context, num1:float, num2:float):
 
 #-----------------------FINAL-------------------------------------
 TOKEN = os.getenv("DISCORD_TOKEN")
-bot.run(TOKEN) #ULTIMO LINHA DO CODIGO, pois é quem executa meu bot, então ele precisa ler todo o código antes de iniciar
+bot.run(TOKEN) 
+#ULTIMO LINHA DO CODIGO, pois é quem executa meu bot, então ele precisa ler todo o código antes de iniciar
