@@ -17,6 +17,7 @@ async def on_ready():
     sincs = await bot.tree.sync() # variavel que inicia os comandos sincronizados
     print(f"{len(sincs)} Comandos sincronizados") #contador de comandos sincronizados
     print("Bot inicializado com sucesso!!!") #🔝 Define uma função, e add um evento, e on_ready - quando o bot estiver ready ele run a function e printa
+    enviar_mensagem_teste.start()
     enviar_mensagem_manha.start()
     enviar_mensagem_noite.start() #INICIANDO A TASK, TASKS PRECISAM SER INICIALIZADAS
     
@@ -106,7 +107,6 @@ async def selecionar_membro(interact:discord.Interaction, membro:discord.Member)
 async def enviar_mensagem_teste():
     canal = bot.get_channel(1174937371104514060)
     await canal.send("TESTEEEEEEEE")
-
 
 @tasks.loop(time=time(21, 0, 0))
 async def enviar_mensagem_noite():
