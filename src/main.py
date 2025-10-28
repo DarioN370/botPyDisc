@@ -102,14 +102,20 @@ async def selecionar_membro(interact:discord.Interaction, membro:discord.Member)
     await interact.response.send_message(f"Membro selecionado: {membro.mention}")
 
 #-------------------------TASKS------------------------------------
+@tasks.loop(seconds=0.5)
+async def enviar_mensagem_teste():
+    canal = bot.get_channel(1174937371104514060)
+    await canal.send("TESTEEEEEEEE")
+
+
 @tasks.loop(time=time(21, 0, 0))
 async def enviar_mensagem_noite():
-    canal = bot.get_channel(1432322273024409651) #Bot pegando o id do canal e guardando na var CANAL
+    canal = bot.get_channel(1174937371104514060) #Bot pegando o id do canal e guardando na var CANAL
     await canal.send("BOA NOITEEEE🌕🌚")
 
 @tasks.loop(time=time(11, 0, 0))
 async def enviar_mensagem_manha():
-    canal = bot.get_channel(1432322273024409651) #Bot pegando o id do canal e guardando na var CANAL
+    canal = bot.get_channel(1174937371104514060) #Bot pegando o id do canal e guardando na var CANAL
     await canal.send("Bom Dia ⛅⛅")
 
 
